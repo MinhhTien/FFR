@@ -1,5 +1,28 @@
-<div id="displayer"></div>
-<form id="mainForm" enctype="application/x-www-form-urlencoded">
-    <input type="text" name="studentId">
-    <button type="button" id="mainFormSubmit">Find</button>
-</form>
+<h1>Test</h1>
+<div id="xhr-img-displayer"></div>
+{{#if imgPath}}
+    <img src="{{imgPath}}" alt="return image">
+{{else}}
+    {{#if message}}
+        <p>{{message}}</p>
+    {{/if}}
+    <form action="/camera" method="post" enctype="multipart/form-data" id="img-form">
+        <input type="file" accept="image/*" name="file">
+        <input type="submit">
+        <input type="button" value="Submit XHR" id="img-submit-btn">
+    </form>
+{{/if}}
+
+{{!-- <div id="xhr-displayer"></div>
+{{#if resObj}}
+    <p>{{resObj}}</p>
+{{else}}
+    {{#if message}}
+        <p>{{message}}</p>
+    {{/if}}
+    <form action="/test" method="get" enctype="multipart/form-data" id="form">
+        <input type="text"  name="student-id">
+        <input type="submit">
+        <input type="button" value="Submit XHR" id="submit-btn">
+    </form>
+{{/if}} --}}

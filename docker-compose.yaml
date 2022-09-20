@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  db:
+    container_name: ffr_db
+    image: mongo:4.2
+    restart: always
+    ports:
+      - 27017:27017
+    networks:
+      - ffr
+  
+  ai:
+    container_name: ffr_ai
+    image: ffr-ai:latest
+    restart: always
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+    networks:
+      - ffr
+
+  be:
+    container_name: ffr_be
+    command: 
+      - bash
+      - -c
+      - "npm run mongodb-init && npm run start"
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - ai
+    networks:
+      - ffr
+  
+
+networks:
+  ffr:
+    driver: bridge
